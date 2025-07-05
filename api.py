@@ -8,11 +8,13 @@ import hmac
 import hashlib
 import os
 from dotenv import load_dotenv
+from cryptography.fernet import Fernet
 
 # Cargar variables de entorno
 load_dotenv()
 SECRET_KEY = os.getenv("API_SECRET_KEY")
-
+REFLECTIONS_KEY = os.getenv("REFLECTIONS_SECRET_KEY")
+fernet = Fernet(REFLECTIONS_KEY.encode())
 
 app = Flask(__name__)
 
@@ -33,8 +35,11 @@ def normalize_emotion(emotion: str) -> str:
 # Cargar modelo y datos
 model = SentenceTransformer("distiluse-base-multilingual-cased-v1")
 
-with open("reflections_cleaned.json", "r", encoding="utf-8") as f:
-    reflections = json.load(f)
+with open("reflections_encrypted.bin", "rb") as f:
+    encrypted_data = f.read()
+
+decrypted_data = fernet.decrypt(encrypted_data)
+reflections = json.loads(decrypted_data)
 
 embeddings = np.load("embeddings.npy")
 
