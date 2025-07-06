@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copiar solo archivos necesarios
 COPY api.py reflections_encrypted.bin embeddings.npy ./
-COPY requirements.txt .env ./
+COPY requirements.txt ./
 
 # Instalar dependencias (incluye torch CPU-only)
 RUN pip install --no-cache-dir --upgrade pip \
