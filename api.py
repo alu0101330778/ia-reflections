@@ -16,6 +16,9 @@ SECRET_KEY = os.getenv("API_SECRET_KEY")
 REFLECTIONS_KEY = os.getenv("REFLECTIONS_SECRET_KEY")
 fernet = Fernet(REFLECTIONS_KEY.encode())
 
+if not REFLECTIONS_KEY:
+    raise ValueError("REFLECTIONS_SECRET_KEY no está definida en las variables de entorno")
+    
 app = Flask(__name__)
 
 def verify_signature(req):
