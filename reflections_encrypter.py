@@ -5,10 +5,10 @@ import json
 
 # Cargar variables de entorno
 load_dotenv()
-key = os.getenv("REFLECTIONS_SECRET_KEY")
+key = os.getenv("REFLECTIONS_ENCRYPTION_KEY")
 
 if not key:
-    raise ValueError("La clave REFLECTIONS_SECRET_KEY no está definida en el .env")
+    raise ValueError("La clave REFLECTIONS_ENCRYPTION_KEY no está definida en el .env")
 
 try:
     fernet = Fernet(key.encode())

@@ -13,12 +13,12 @@ from cryptography.fernet import Fernet
 # Cargar variables de entorno
 load_dotenv()
 SECRET_KEY = os.getenv("API_SECRET_KEY")
-REFLECTIONS_KEY = os.getenv("REFLECTIONS_SECRET_KEY")
+REFLECTIONS_KEY = os.getenv("REFLECTIONS_ENCRYPTION_KEY")
 fernet = Fernet(REFLECTIONS_KEY.encode())
 
 if not REFLECTIONS_KEY:
-    raise ValueError("REFLECTIONS_SECRET_KEY no está definida en las variables de entorno")
-    
+    raise ValueError("REFLECTIONS_ENCRYPTION_KEY no está definida en las variables de entorno")
+
 app = Flask(__name__)
 
 def verify_signature(req):
@@ -88,7 +88,6 @@ def get_reflection():
     N = 10
     top_reflections = [r for _, r in scored[:N]]
     selected_reflection = np.random.choice(top_reflections)
-
     return jsonify({
         "reflection": {
             "title": selected_reflection["title"],
