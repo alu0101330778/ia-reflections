@@ -96,6 +96,3 @@ def get_reflection():
             "tags": selected_reflection["tags"]
         }
     })
-
-if __name__ == "__main__":
-    app.run(debug=True)

@@ -4,4 +4,4 @@ numpy
 scikit-learn
 python-dotenv
 cryptography
-
+gunicorn
